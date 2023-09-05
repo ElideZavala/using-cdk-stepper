@@ -39,3 +39,4 @@ export class LeaderboardService {
     return scores; // retorna el array de scores
   }
 }
+

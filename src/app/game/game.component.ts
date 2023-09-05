@@ -1,9 +1,12 @@
 import { CdkStepper } from '@angular/cdk/stepper';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { LeaderboardService } from '../core/services/leaderboard.service';
 import { DiceComponent } from '../components/dice/dice.component';
 import { ValueGuesserComponent } from '../components/value-guesser/value-guesser.component';
 import { IDiceSide } from '../interfaces/dice.interface';
+import { IScore } from '../interfaces/score.interface';
+
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
@@ -14,15 +17,18 @@ export class GameComponent implements OnInit {
   @ViewChild(DiceComponent) diceComponent: DiceComponent;
   @ViewChild(ValueGuesserComponent) valueGuesserComponent: ValueGuesserComponent;
   guessedValue: null;
-  isCorrectGuess: null | boolean = null;
+  isCorrectGuess: null | boolean = null   ;
+  scores: IScore[] = [];
 
   nameForm = new FormGroup({
     name: new FormControl('', Validators.required),
   });
 
-  constructor() {}
+  constructor(private leaderboardService: LeaderboardService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.scores = this.leaderboardService.getScores();
+  }
 
   submitName() {
     this.stepper.next();
@@ -36,5 +42,13 @@ export class GameComponent implements OnInit {
 
   showResult(diceSide: IDiceSide) {
     this.isCorrectGuess = this.guessedValue === diceSide.value;
+    if (!this.isCorrectGuess) {
+      return;
+    }
+
+    this.scores = this.leaderboardService.setScores({
+      name: this.nameForm.get('name').value,
+      score: 50,
+    })
   }
 }

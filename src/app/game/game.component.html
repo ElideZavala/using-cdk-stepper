@@ -1,8 +1,6 @@
 <app-game-stepper [linear]="true">
   <cdk-step [completed]="!!nameForm.get('name').value">
-    <ng-template cdkStepLabel>
-      Enter your name
-    </ng-template>
+    <ng-template cdkStepLabel>Enter your name</ng-template>
     <form (ngSubmit)="submitName()" [formGroup]="nameForm">
       <div class="mb-3" *ngIf="nameForm.get('name') as nameControl">
         <label for="nameInput" class="form-label">Player Name</label>
@@ -26,13 +24,24 @@
       </div>
     </form>
   </cdk-step>
-  <cdk-step  [completed]="isCorrectGuess !== null">
-    <ng-template cdkStepLabel>Guess what the value will be when the die is rolled</ng-template>
-    <app-value-guesser></app-value-guesser>
-    <app-dice></app-dice>
+  <cdk-step [completed]="isCorrectGuess !== null">
+    <ng-template cdkStepLabel
+      >Guess what the value will be when the die is rolled</ng-template
+    >
+    <app-value-guesser (valueGuessed)="rollTheDice($event)"></app-value-guesser>
+    <app-dice (diceRolled)="showResult($event)"></app-dice>
+    <ng-container [ngSwitch]="isCorrectGuess">
+      <div class="alert alert-success" *ngSwitchCase="true">
+        You rock {{ nameForm.get('name').value }}! You got 50 points
+      </div>
+      <div class="alert alert-danger" *ngSwitchCase="false">
+        Oops! Try again!
+      </div>
+    </ng-container>
   </cdk-step>
   <cdk-step>
-    <ng-template cdkStepLabel>Results</ng-template>
-    <app-leader-board></app-leader-board>
+    <ng-template cdkStepLabel> Results</ng-template>
+    <app-leader-board [scores]="scores"></app-leader-board>
   </cdk-step>
 </app-game-stepper>
+

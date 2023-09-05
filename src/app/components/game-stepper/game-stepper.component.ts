@@ -1,5 +1,5 @@
 import { CdkStepper } from '@angular/cdk/stepper';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-game-stepper',
@@ -11,7 +11,4 @@ import { Component, OnInit } from '@angular/core';
   }],
 })
 
-export class GameStepperComponent extends CdkStepper {
-
-  
-}
+export class GameStepperComponent extends CdkStepper {} // hereda de CdkStepper

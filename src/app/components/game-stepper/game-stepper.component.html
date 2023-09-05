@@ -6,15 +6,13 @@
         [ngTemplateOutlet]="selected.stepLabel.template"
       >
       </ng-container>
-      <ng-container #showLabelText>
+      <ng-template #showLabelText>
         {{ selected.label }}
-      </ng-container>
+      </ng-template>
     </h3>
   </header>
   <section class="game-stepper__content">
-    <div [ngTemplateOutlet]="selected ? selected.content : null">
-
-    </div>
+    <div [ngTemplateOutlet]="selected ? selected.content : null"></div>
   </section>
   <footer class="game-stepper__navigation">
     <button
@@ -24,6 +22,7 @@
     >
       &larr;
     </button>
+
     <button
       class="game-stepper__navigation__button btn btn-primary"
       cdkStepperNext

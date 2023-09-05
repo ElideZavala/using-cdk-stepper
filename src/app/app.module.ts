@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CdkStepperModule } from '@angular/cdk/stepper';
 
@@ -22,6 +22,7 @@ import { GameStepperComponent } from './components/game-stepper/game-stepper.com
   ],
   imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule, CdkStepperModule],
   providers: [],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
