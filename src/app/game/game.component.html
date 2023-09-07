@@ -25,9 +25,9 @@
     </form>
   </cdk-step>
   <cdk-step [completed]="isCorrectGuess !== null">
-    <ng-template cdkStepLabel
-      >Guess what the value will be when the die is rolled</ng-template
-    >
+    <ng-template cdkStepLabel>
+      Guess what the value will be when the die is rolled
+    </ng-template>
     <app-value-guesser (valueGuessed)="rollTheDice($event)"></app-value-guesser>
     <app-dice (diceRolled)="showResult($event)"></app-dice>
     <ng-container [ngSwitch]="isCorrectGuess">

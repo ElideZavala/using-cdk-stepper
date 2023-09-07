@@ -17,9 +17,9 @@ export class DiceComponent implements OnInit {
   dice: IDice = {
     sides: [],
   };
-  selectedSide: IDiceSide;
-  rollTransition: RollTransitions;
-  @Output() diceRolled = new EventEmitter<IDiceSide>();
+  selectedSide: IDiceSide; // es el lado que se muestra en el dado
+  rollTransition: RollTransitions; // es la transición que se aplica al dado
+  @Output() diceRolled = new EventEmitter<IDiceSide>(); // es el evento que se emite cuando se lanza el dado
   constructor(private el: ElementRef) {
     this.dice.sides = new Array(6).fill(0).map((_, index) => {
       let value = index + 1;
@@ -36,9 +36,7 @@ export class DiceComponent implements OnInit {
 
   rollDice() {
     const index = Math.floor(Math.random() * 6); // Math.floor redondea hacia abajo el número
-    console.log("index: ", index);
     this.selectedSide = this.dice.sides[index];
-    console.log("selectedSide: ", this.selectedSide);
     this.toggleRollTransition();
     setTimeout(() => {
       // we emit after the dice's animation has finished
